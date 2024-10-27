@@ -49,8 +49,12 @@ const DonarRegistration = () => {
                     alert(response.data.message);
                 })
                 .catch(error => {
+                    if (error.response && error.response.status === 409) {
+                        alert("Try another password");
+                    } else {
+                        alert("Failed to insert data");
+                    }
                     console.error('Error:', error);
-                    alert('Failed to insert data');
                 });
         }
     };
