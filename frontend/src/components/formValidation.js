@@ -1,4 +1,4 @@
-const validation = (values, termsAccepted) => {
+const validation = (values, termsAccepted, formType) => {
     let error = {};
 
     // Regex pattern for validations
@@ -25,25 +25,25 @@ const validation = (values, termsAccepted) => {
         error.email = "Email didn't match";
     }
 
-    // Age validation
-    if (values.age === "") {
-        error.age = "Age should not be empty";
-    } else {
-        const age = parseInt(values.age, 10);
-        if (isNaN(age) || age < 18 || age > 65) {
-            error.age = "Please enter a valid age between 18 and 65";
+    if (formType === "donor") {
+        if (values.age === "") {
+            error.age = "Age should not be empty";
+        } else {
+            const age = parseInt(values.age, 10);
+            if (isNaN(age) || age < 18 || age > 65) {
+                error.age = "Please enter a valid age between 18 and 65";
+            }
+        }
+
+        if (values.selectedBlood === "") {
+            error.selectedBlood = "Please select the blood group";
+        }
+
+        if (values.selectedGender === "") {
+            error.selectedGender = "Please select the gender";
         }
     }
 
-    // Blood Group validation
-    if (values.selectedBlood === "") {
-        error.selectedBlood = "Please select the blood group";
-    }
-
-    // gender validation 
-    if (values.selectedGender === "") {
-        error.selectedGender = "Please select the gender";
-    }
 
     //state validation 
     if (values.selectedState === "") {

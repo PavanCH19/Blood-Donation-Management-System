@@ -37,7 +37,7 @@ const DonarRegistration = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const validationErrors = Validation(formData, termsAccepted);
+        const validationErrors = Validation(formData, termsAccepted, "donar");
         setErrors(validationErrors);
 
         // Check if there are no errors before proceeding

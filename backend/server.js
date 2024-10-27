@@ -9,7 +9,8 @@ const port = 8081;
 app.use(cors());
 app.use(bodyParser.json());
 
-const insertData = (formData, res) => {
+// Function to insert donor data into the database
+const insertDonorData = (formData, res) => {
     const sql = `INSERT INTO donarregistration (donarName, donarNumber, donarEmail, donarAge, donarBloodGroup, donarGender, donarState, donarDistrict, donarTaluq, donarCity, donarAddress, donarPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const values = [
         formData.name,
@@ -28,29 +29,76 @@ const insertData = (formData, res) => {
 
     conn.query(sql, values, (error) => {
         if (error) {
-            console.error('Error inserting data:', error);
-            res.status(500).send('Error inserting data');
+            console.error('Error inserting donor data:', error);
+            res.status(500).send('Error inserting donor data');
         } else {
-            res.status(200).json({ message: 'Data inserted successfully' });
+            res.status(200).json({ message: 'Donor data inserted successfully' });
         }
     });
 };
 
-// Endpoint to handle form data
+// Endpoint to handle donor registration
 app.post('/donarRegistration', (req, res) => {
     const formData = req.body;
     const query = "SELECT EXISTS(SELECT 1 FROM donarregistration WHERE donarPassword = ?) AS passwordExists";
 
     conn.query(query, [formData.password], (err, results) => {
         if (err) {
-            console.error('Error checking password existence:', err);
-            res.status(500).send('Error checking password existence');
+            console.error('Error checking donor password existence:', err);
+            res.status(500).send('Error checking donor password existence');
         } else {
             const exists = results[0].passwordExists;
             if (exists) {
-                res.status(409).json({ message: 'Password already exists' });
+                res.status(409).json({ message: 'Donor password already exists' });
             } else {
-                insertData(formData, res);
+                insertDonorData(formData, res);
+            }
+        }
+    });
+});
+
+// Function to insert blood bank data into the database
+const insertBloodBankData = (formData, res) => {
+    const backId = `${formData.mobileNumber}+ ${formData.selectedCity}+${formData.email}`
+    const sql = `INSERT INTO blood_bank_registration (bloodBankId, bloodBankName, bloodBankMobileNumber, bloodBankEmail, bloodBankState, bloodBankDistrict, bloodBankTaluq, bloodBankCity, bloodBankAddress, bloodBankPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+        backId,
+        formData.name,
+        formData.mobileNumber,
+        formData.email,
+        formData.selectedState,
+        formData.selectedDistrict,
+        formData.selectedTaluq,
+        formData.selectedCity,
+        formData.address,
+        formData.password
+    ];
+
+    conn.query(sql, values, (error) => {
+        if (error) {
+            console.error('Error inserting blood bank data:', error);
+            res.status(500).send('Error inserting blood bank data');
+        } else {
+            res.status(200).json({ message: 'Blood bank data inserted successfully' });
+        }
+    });
+};
+
+// Endpoint to handle blood bank registration
+app.post('/bloodBankRegistration', (req, res) => {
+    const formData = req.body;
+    const query = "SELECT EXISTS(SELECT 1 FROM blood_bank_registration WHERE bloodBankPassword = ?) AS passwordExists";
+
+    conn.query(query, [formData.password], (err, results) => {
+        if (err) {
+            console.error('Error checking blood bank password existence:', err);
+            res.status(500).send('Error checking blood bank password existence');
+        } else {
+            const exists = results[0].passwordExists;
+            if (exists) {
+                res.status(409).json({ message: 'Blood bank password already exists' });
+            } else {
+                insertBloodBankData(formData, res);
             }
         }
     });
