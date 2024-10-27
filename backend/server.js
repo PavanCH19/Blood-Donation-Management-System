@@ -14,14 +14,14 @@ app.post('/donarRegistration', (req, res) => {
     //const formData = req.body;
     const sql = "select donarPassword from donarregistration where donarPassword = '9986396323'";
 
-    conn.query(query, (err, res) => {
-        if (err) {
-            console.error('Error inserting data:', error);
-            res.status(500).send('Error inserting data');
-        } else {
-            res.status(200).json({ message: 'Data inserted successfully' });
-        }
-    });
+    // conn.query(query, (err, res) => {
+    //     if (err) {
+    //         console.error('Error inserting data:', error);
+    //         res.status(500).send('Error inserting data');
+    //     } else {
+    //         res.status(200).json({ message: 'Data inserted successfully' });
+    //     }
+    // });
 
     // // SQL query to insert data
     // const sql = `INSERT INTO donarregistration (donarName, donarNumber, donarEmail, donarAge, donarBloodGroup, donarGender, donarState, donarDistrict, donarTaluq, donarCity, donarAddress, donarPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
