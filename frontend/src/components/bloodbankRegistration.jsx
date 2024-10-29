@@ -30,6 +30,7 @@ const BloodBankRegistration = () => {
     const handleTermsChange = () => {
         setTermsAccepted((prev) => !prev);
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -56,7 +57,7 @@ const BloodBankRegistration = () => {
     };
 
     return (<>
-        <div className="donarRegContainer">
+        <div className="bloodBankRegContainer">
             <form action="" onSubmit={handleSubmit}>
                 <label htmlFor="name" className="inputLabels">Name : </label>
                 <input type="text" id="name" name="name" className="inputField" placeholder="enter your name" value={formData.name} onChange={handleChange} />

@@ -5,6 +5,9 @@ const nav = () => {
         <nav>
             <ul>
                 <li>
+                    <Link to="/dashboard">Go to dashboard</Link>
+                </li>
+                <li>
                     <Link to="dashboard/donar-registration">Donar Registration</Link>
                 </li>
                 <li>

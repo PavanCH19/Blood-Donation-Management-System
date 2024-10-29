@@ -39,6 +39,7 @@ const DonarRegistration = () => {
 
         const validationErrors = Validation(formData, termsAccepted, "donar");
         setErrors(validationErrors);
+        console.table(validationErrors);
 
         // Check if there are no errors before proceeding
         if (Object.keys(validationErrors).length === 0) {
@@ -69,7 +70,7 @@ const DonarRegistration = () => {
                     {errors.name && <span className="errorshow">{errors.name}</span>}
 
                     <label htmlFor="mobileNumber" className="inputLabels">Mobile Number : </label>
-                    <input type="tel" id="mobileNumber" name="mobileNumber" className="inputField" placeholder="enter your number" minLength={10} value={formData.mobileNumber} onChange={handleChange} />
+                    <input type="tel" id="mobileNumber" name="mobileNumber" className="inputField" placeholder="enter your number" value={formData.mobileNumber} onChange={handleChange} />
                     {errors.mobileNumber && <span className="errorshow">{errors.mobileNumber}</span>}
 
                     <label htmlFor="email" className="inputLabels">Email : </label>
